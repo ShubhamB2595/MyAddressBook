@@ -4,39 +4,45 @@ import java.util.Scanner;
 
 public class AddressBookMain {
 
+	
 	public static void main(String[] args) {
 
-		System.out.println("Welcome to Address Book Problem");
-
-		String firstName, lastName, address, city, state, zip, pNumber, email;
+		Contacts contact = new Contacts();
 		
 		Scanner scan = new Scanner(System.in);
 		
-		System.out.println("Enter the First Name");
-		firstName = scan.nextLine();
-		
-		System.out.println("Enter the Last Name");
-		lastName = scan.nextLine();
-		
-		System.out.println("Enter the Address");
-		address = scan.nextLine();
-		
-		System.out.println("Enter the City");
-		city = scan.nextLine();
-		
-		System.out.println("Enter the State");
-		state = scan.nextLine();
-		
-		System.out.println("Enter the Zip code");
-		zip = scan.nextLine();
-		
-		System.out.println("Enter the Phone Number");
-		pNumber = scan.nextLine();
-		
-		System.out.println("Enter the Email ID");
-		email = scan.nextLine();
+		while(true) {
+			
+			//Menu of address book
+			System.out.println("Address Book Menu");
+			System.out.println();
+			System.out.println("1.   Add New Person to Contacts");
+			System.out.println("2.   Display Contacts");
+			System.out.println("3.   Exit");
+			System.out.println();
+			System.out.println("Enter your choice");
+			
+			int choice = scan.nextInt();
+			
+			//switch cases
+			switch(choice) {
+			
+			case 1:
+				contact.addContact();
+				break;
+				
+			case 2:
+				contact.displayContact();
+				break;
+				
+			case 3:
+				System.out.println("Closing the menu");
+				System.exit(1);
+			}
+			
+		}
 
-		scan.close();
+		
 	}
 
 }

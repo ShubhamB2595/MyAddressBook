@@ -21,8 +21,17 @@ public class Contacts {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("Enter the First Name");
-		firstName = scan.nextLine();
+		while (true) {
+
+			System.out.println("Enter the First Name");
+			firstName = scan.nextLine();
+
+			if (!(checkDuplicate(firstName))) {
+				break;
+			} else {
+				System.out.println(firstName + " is already exits \n please enter different name");
+			}
+		}
 
 		System.out.println("Enter the Last Name");
 		lastName = scan.nextLine();
@@ -148,5 +157,27 @@ public class Contacts {
 		index = scan.nextInt();
 		person.remove(index);
 
+	}
+
+	// method to check duplicate
+	public boolean checkDuplicate(String name) {
+
+		int flag = 0;
+
+		for (Person p : person) {
+
+			if (p.getFirstName().equalsIgnoreCase(name)) {
+
+				flag = 1;
+				break;
+			}
+		}
+
+		if (flag == 1) {
+
+			return true;
+		}
+
+		return false;
 	}
 }

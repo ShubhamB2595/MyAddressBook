@@ -19,6 +19,10 @@ public class Person {
 		this.email = email;
 	}
 
+	public Person() {
+		
+	}
+
 	//Getter setters
 	public String getFirstName() {
 		return firstName;

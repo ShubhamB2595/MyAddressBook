@@ -51,10 +51,15 @@ public class Contacts {
 	// method to display the contact
 	public void displayContact() {
 
-		for (Person p : person) {
+		if (person.isEmpty()) {
+			System.out.println("Contacts are empty");
+		} else {
+			for (Person p : person) {
 
-			System.out.println(p);
+				System.out.println(p);
+			}
 		}
+
 	}
 
 	// method to edit the contact
@@ -129,7 +134,7 @@ public class Contacts {
 
 	// method to remove contact
 	public void removeContact() {
-		
+
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		int index = 0;

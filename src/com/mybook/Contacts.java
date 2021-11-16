@@ -1,6 +1,7 @@
 package com.mybook;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -179,5 +180,11 @@ public class Contacts {
 		}
 
 		return false;
+	}
+
+	// method for sorting the contacts by first name
+	public void sortContacts() {
+
+		SortServices.sortByName(person);
 	}
 }

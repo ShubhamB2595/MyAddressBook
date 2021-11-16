@@ -1,5 +1,7 @@
 package com.mybook;
 
+import java.util.Comparator;
+
 public class Person {
 
 	//variables
@@ -88,6 +90,20 @@ public class Person {
 		this.email = email;
 	}
 
+	//sort by first name
+	public static Comparator<Person> firstNameSorting = new Comparator<Person>() {
+		
+		@Override
+		public int compare(Person p1, Person p2) {
+			
+			String name1 = p1.getFirstName();
+			String name2 = p2.getFirstName();
+			
+			return name1.compareTo(name2);
+		}
+	};
+	
+	
 	@Override
 	public String toString() {
 		return "Person [firstName=" + firstName + ", "

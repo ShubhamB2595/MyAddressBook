@@ -44,8 +44,12 @@ public class AddressBookMain {
 			case 4:
 				contact.removeContact();
 				break;
-
+				
 			case 5:
+				contact.sortContacts();
+				break;
+
+			case 6:
 				System.out.println("Closing the menu");
 				System.exit(1);
 

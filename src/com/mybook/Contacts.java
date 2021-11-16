@@ -185,6 +185,35 @@ public class Contacts {
 	// method for sorting the contacts by first name
 	public void sortContacts() {
 
-		SortServices.sortByName(person);
+		Scanner scan = new Scanner(System.in);
+
+		System.out
+				.println("Sort By...\n" + "1: First Name\n" + "2: City\n" + "3: State\n" + "4: Zip Code\n" + "5: Exit");
+		int choice = scan.nextInt();
+
+		switch (choice) {
+
+		case 1:
+			SortServices.sortByName(person);
+			break;
+
+		case 2:
+			SortServices.sortByZip(person);
+			break;
+
+		case 3:
+			SortServices.sortByState(person);
+			break;
+
+		case 4:
+			SortServices.sortByZip(person);
+			break;
+
+		case 5:
+			return;
+
+		default:
+			System.out.println("Please Enter Valid Option...");
+		}
 	}
 }

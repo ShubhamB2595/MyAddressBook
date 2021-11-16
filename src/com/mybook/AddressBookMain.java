@@ -19,7 +19,8 @@ public class AddressBookMain {
 			System.out.println("1.   Add New Contacts");
 			System.out.println("2.   Display Contacts");
 			System.out.println("3.   Edit Contacts");
-			System.out.println("4.   Exit");
+			System.out.println("4.   Delete Contacts");
+			System.out.println("5.   Exit");
 			System.out.println();
 			System.out.println("Enter your choice");
 
@@ -39,8 +40,12 @@ public class AddressBookMain {
 			case 3:
 				contact.editContact();
 				break;
-
+				
 			case 4:
+				contact.removeContact();
+				break;
+
+			case 5:
 				System.out.println("Closing the menu");
 				System.exit(1);
 

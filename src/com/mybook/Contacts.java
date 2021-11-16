@@ -75,7 +75,7 @@ public class Contacts {
 		System.out.println("Enter ID to edit");
 		index = scan.nextInt();
 
-		while(true) {
+		while (true) {
 
 			System.out.println("Select what you wants to edit \n" + "1.   Address\n" + "2.   City\n" + "3.   State\n"
 					+ "4.   Phone Number\n" + "5.   Zip Code\n" + "6.   Save and Exit\n");
@@ -122,8 +122,26 @@ public class Contacts {
 			default:
 				System.out.println("Enter correct choice");
 			}
-			
+
 			System.out.println(person.get(index));
 		}
+	}
+
+	// method to remove contact
+	public void removeContact() {
+		
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+		int index = 0;
+
+		for (Person p : person) {
+
+			System.out.println("ID: " + person.indexOf(p) + " : " + p + "\n");
+		}
+
+		System.out.println("Enter ID to edit");
+		index = scan.nextInt();
+		person.remove(index);
+
 	}
 }

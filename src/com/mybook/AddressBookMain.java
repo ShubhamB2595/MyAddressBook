@@ -20,7 +20,9 @@ public class AddressBookMain {
 			System.out.println("2.   Display Contacts");
 			System.out.println("3.   Edit Contacts");
 			System.out.println("4.   Delete Contacts");
-			System.out.println("5.   Exit");
+			System.out.println("5.   Search Contacts");
+			System.out.println("6.   Sort Contacts");
+			System.out.println("7.   Exit");
 			System.out.println();
 			System.out.println("Enter your choice");
 
@@ -46,10 +48,14 @@ public class AddressBookMain {
 				break;
 				
 			case 5:
-				contact.sortContacts();
+				contact.SearchContact();
 				break;
 
 			case 6:
+				contact.sortContacts();
+				break;
+				
+			case 7:
 				System.out.println("Closing the menu");
 				System.exit(1);
 

@@ -163,23 +163,9 @@ public class Contacts {
 	// method to check duplicate
 	public boolean checkDuplicate(String name) {
 
-		int flag = 0;
-
-		for (Person p : person) {
-
-			if (p.getFirstName().equalsIgnoreCase(name)) {
-
-				flag = 1;
-				break;
-			}
-		}
-
-		if (flag == 1) {
-
-			return true;
-		}
-
-		return false;
+		int flag = person.stream().anyMatch(p -> p.getFirstName().equalsIgnoreCase(name)) ? 1 : 0;
+		
+		return flag == 1;
 	}
 
 	// method for sorting the contacts by first name
@@ -215,5 +201,33 @@ public class Contacts {
 		default:
 			System.out.println("Please Enter Valid Option...");
 		}
+	}
+
+	public void SearchContact() {
+		
+
+		Scanner scan = new Scanner(System.in);
+
+		System.out
+				.println("Search By...\n" + "1:  City\n" + "2: State\n" + "3: Exit");
+		int choice = scan.nextInt();
+
+		switch (choice) {
+
+		case 1:
+			SortServices.searchByCity(person);
+			break;
+
+		case 2:
+			SortServices.searchByState(person);
+			break;
+
+		case 3:
+			return;
+					
+		default:
+			System.out.println("Please Enter Valid Option...");
+		}
+		
 	}
 }

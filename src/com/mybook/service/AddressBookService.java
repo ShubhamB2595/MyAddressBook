@@ -1,16 +1,98 @@
-package com.mybook;
+package com.mybook.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
 
-public class Contacts {
+import com.mybook.Person;
+import com.mybook.exception.AddressBookException;
+
+public class AddressBookService implements AddressBookInterface {
 
 	List<Person> person = new ArrayList<Person>();
 
-	// constructor
-	public Contacts() {
+	// methods for sorting operation
+	public static void sortByName(List<Person> person) {
+
+		person.sort(Person.firstNameSorting);
+		person.forEach(System.out::println);
+	}
+
+	public static void sortByCity(List<Person> person) {
+
+		person.sort(Person.citySorting);
+		person.forEach(System.out::println);
+	}
+
+	public static void sortByState(List<Person> person) {
+
+		person.sort(Person.stateSorting);
+		person.forEach(System.out::println);
+	}
+
+	public static void sortByZip(List<Person> person) {
+
+		person.sort(Person.zipSorting);
+		person.forEach(System.out::println);
+	}
+
+	// methods for searching operation
+	public static void searchByCity(List<Person> person) {
+
+		Scanner scan = new Scanner(System.in);
+		String search;
+		List<Person> matches = new ArrayList<>();
+		System.out.println("Enter the city to search: ");
+		search = scan.nextLine();
+		int flag = 0, count = 0;
+		for (Person p : person) {
+			if (p.getCity().equalsIgnoreCase(search)) {
+				flag = 1;
+				matches.add(p);
+				count++;
+			}
+		}
+
+		if (flag == 1) {
+			System.out.println("---Match Found---");
+			System.out.println("Number of City: " + count);
+			for (Person p : matches) {
+				System.out.println(p);
+			}
+		} else {
+			System.out.println("Match not found..");
+		}
+
+	}
+
+	public static void searchByState(List<Person> person) {
+
+		Scanner scan = new Scanner(System.in);
+		String search;
+		List<Person> matches = new ArrayList<>();
+		System.out.println("Enter the state to search: ");
+		search = scan.nextLine();
+		int flag = 0, count = 0;
+		;
+		for (Person p : person) {
+			if (p.getState().equalsIgnoreCase(search)) {
+				flag = 1;
+				matches.add(p);
+				count++;
+			}
+		}
+
+		if (flag == 1) {
+			System.out.println("---Match Found---");
+			System.out.println("Number of State: " + count);
+			for (Person p : matches) {
+				System.out.println(p);
+			}
+		} else {
+			System.out.println("Match not found..");
+		}
 
 	}
 
@@ -19,7 +101,6 @@ public class Contacts {
 
 		String firstName, lastName, address, city, state, zip, pNumber, email;
 
-		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
 		while (true) {
@@ -73,9 +154,8 @@ public class Contacts {
 	}
 
 	// method to edit the contact
-	public void editContact() {
+	public void editContact() throws AddressBookException {
 
-		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
 		// declaration
@@ -143,7 +223,7 @@ public class Contacts {
 	}
 
 	// method to remove contact
-	public void removeContact() {
+	public void removeContact() throws AddressBookException {
 
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
@@ -164,7 +244,7 @@ public class Contacts {
 	public boolean checkDuplicate(String name) {
 
 		int flag = person.stream().anyMatch(p -> p.getFirstName().equalsIgnoreCase(name)) ? 1 : 0;
-		
+
 		return flag == 1;
 	}
 
@@ -180,19 +260,19 @@ public class Contacts {
 		switch (choice) {
 
 		case 1:
-			SortServices.sortByName(person);
+			sortByName(person);
 			break;
 
 		case 2:
-			SortServices.sortByZip(person);
+			sortByZip(person);
 			break;
 
 		case 3:
-			SortServices.sortByState(person);
+			sortByState(person);
 			break;
 
 		case 4:
-			SortServices.sortByZip(person);
+			sortByZip(person);
 			break;
 
 		case 5:
@@ -204,30 +284,65 @@ public class Contacts {
 	}
 
 	public void SearchContact() {
-		
 
 		Scanner scan = new Scanner(System.in);
 
-		System.out
-				.println("Search By...\n" + "1:  City\n" + "2: State\n" + "3: Exit");
+		System.out.println("Search By...\n" + "1:  City\n" + "2: State\n" + "3: Exit");
 		int choice = scan.nextInt();
 
 		switch (choice) {
 
 		case 1:
-			SortServices.searchByCity(person);
+			searchByCity(person);
 			break;
 
 		case 2:
-			SortServices.searchByState(person);
+			searchByState(person);
 			break;
 
 		case 3:
 			return;
-					
+
 		default:
 			System.out.println("Please Enter Valid Option...");
 		}
-		
+
+	}
+
+	public void viewbyCityandState() {
+
+		Scanner scan = new Scanner(System.in);
+		Dictionary<String, String> cityDict = createCityDict();
+		Dictionary<String, String> stateDict = createStateDict();
+		final String city, state;
+		System.out.println("Enter City");
+		city = scan.nextLine();
+		System.out.println("Enter State");
+		state = scan.nextLine();
+		searchByCityandState(cityDict, stateDict);
+
+	}
+
+	private void searchByCityandState(Dictionary<String, String> cityDict, Dictionary<String, String> stateDict) {
+
+		System.out.println("In progress...");
+	}
+
+	private Dictionary<String, String> createStateDict() {
+
+		Dictionary<String, String> stateDict = new Hashtable<String, String>();
+		for (Person p : person) {
+			stateDict.put(p.getFirstName(), p.getState());
+		}
+		return stateDict;
+	}
+
+	private Dictionary<String, String> createCityDict() {
+
+		Dictionary<String, String> cityDict = new Hashtable<String, String>();
+		for (Person p : person) {
+			cityDict.put(p.getFirstName(), p.getState());
+		}
+		return cityDict;
 	}
 }

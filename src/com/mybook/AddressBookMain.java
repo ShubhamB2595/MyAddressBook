@@ -2,11 +2,14 @@ package com.mybook;
 
 import java.util.Scanner;
 
+import com.mybook.exception.AddressBookException;
+import com.mybook.service.AddressBookService;
+
 public class AddressBookMain {
 
-	public static void main(String[] args) {
-
-		Contacts contact = new Contacts();
+	public static void main(String[] args) throws AddressBookException {
+		
+		AddressBookService addBook = new AddressBookService();
 
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
@@ -32,27 +35,27 @@ public class AddressBookMain {
 			switch (choice) {
 
 			case 1:
-				contact.addContact();
+				addBook.addContact();
 				break;
 
 			case 2:
-				contact.displayContact();
+				addBook.displayContact();
 				break;
 				
 			case 3:
-				contact.editContact();
+				addBook.editContact();
 				break;
 				
 			case 4:
-				contact.removeContact();
+				addBook.removeContact();
 				break;
 				
 			case 5:
-				contact.SearchContact();
+				addBook.SearchContact();
 				break;
 
 			case 6:
-				contact.sortContacts();
+				addBook.sortContacts();
 				break;
 				
 			case 7:

@@ -6,7 +6,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
 
-import com.mybook.Person;
 import com.mybook.exception.AddressBookException;
 
 public class AddressBookService implements AddressBookInterface {

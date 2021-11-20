@@ -3,9 +3,12 @@ package com.mybook.service;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.mybook.Person;
+import com.mybook.enums.SortOption;
 import com.mybook.exception.AddressBookException;
 
 public class AddressBookService implements AddressBookInterface {
@@ -13,28 +16,9 @@ public class AddressBookService implements AddressBookInterface {
 	List<Person> person = new ArrayList<Person>();
 
 	// methods for sorting operation
-	public static void sortByName(List<Person> person) {
+	public static void sortData(List<Person> person, SortOption sortOptions) {
 
-		person.sort(Person.firstNameSorting);
-		person.forEach(System.out::println);
-	}
-
-	public static void sortByCity(List<Person> person) {
-
-		person.sort(Person.citySorting);
-		person.forEach(System.out::println);
-	}
-
-	public static void sortByState(List<Person> person) {
-
-		person.sort(Person.stateSorting);
-		person.forEach(System.out::println);
-	}
-
-	public static void sortByZip(List<Person> person) {
-
-		person.sort(Person.zipSorting);
-		person.forEach(System.out::println);
+		person.stream().sorted(sortOptions.comparator).forEach(System.out::println);
 	}
 
 	// methods for searching operation
@@ -96,7 +80,7 @@ public class AddressBookService implements AddressBookInterface {
 	}
 
 	// method to add contacts
-	public void addContact() {
+	public LinkedList<Person> addContact(LinkedList<Person> personList) {
 
 		String firstName, lastName, address, city, state, zip, pNumber, email;
 
@@ -107,7 +91,7 @@ public class AddressBookService implements AddressBookInterface {
 			System.out.println("Enter the First Name");
 			firstName = scan.nextLine();
 
-			if (!(checkDuplicate(firstName))) {
+			if (!(checkDuplicate(firstName, personList))) {
 				break;
 			} else {
 				System.out.println(firstName + " is already exits \n please enter different name");
@@ -135,112 +119,127 @@ public class AddressBookService implements AddressBookInterface {
 		System.out.println("Enter the Email ID");
 		email = scan.nextLine();
 
-		person.add(new Person(firstName, lastName, address, city, state, zip, pNumber, email));
+		Person person = new Person(firstName, lastName, address, city, state, zip, pNumber, email);
+		personList.add(person);
+		return personList;
 	}
 
 	// method to display the contact
-	public void displayContact() {
+	public void displayContact(LinkedList<Person> person) {
 
 		if (person.isEmpty()) {
 			System.out.println("Contacts are empty");
 		} else {
-			for (Person p : person) {
-
-				System.out.println(p);
-			}
+			person.forEach(System.out::println);
 		}
 
 	}
 
 	// method to edit the contact
-	public void editContact() throws AddressBookException {
+	public LinkedList<Person> editContact(LinkedList<Person> person) throws AddressBookException {
 
 		Scanner scan = new Scanner(System.in);
 
-		// declaration
-		String address, city, state, zip, number;
-		int index = 0, choice;
+		try {
+			if (person.isEmpty()) {
+				System.out.println("No contacts to edit");
+			} else {
+				String address, city, state, zip, number;
+				int index = 0, choice;
 
-		for (Person p : person) {
+				for (Person p : person) {
 
-			System.out.println("ID: " + person.indexOf(p) + " : " + p + "\n");
-		}
+					System.out.println("ID: " + person.indexOf(p) + " : " + p + "\n");
+				}
 
-		System.out.println("Enter ID to edit");
-		index = scan.nextInt();
+				System.out.println("Enter ID to edit");
+				index = scan.nextInt();
 
-		while (true) {
+				while (true) {
 
-			System.out.println("Select what you wants to edit \n" + "1.   Address\n" + "2.   City\n" + "3.   State\n"
-					+ "4.   Phone Number\n" + "5.   Zip Code\n" + "6.   Save and Exit\n");
+					System.out.println("Select what you wants to edit \n" + "1.   Address\n" + "2.   City\n"
+							+ "3.   State\n" + "4.   Phone Number\n" + "5.   Zip Code\n" + "6.   Save and Exit\n");
 
-			choice = scan.nextInt();
+					choice = scan.nextInt();
 
-			switch (choice) {
+					switch (choice) {
 
-			case 1:
-				System.out.println("Enter new Address");
-				address = scan.nextLine();
-				person.get(index).setAddress(address);
-				break;
+					case 1:
+						System.out.println("Enter new Address");
+						address = scan.nextLine();
+						person.get(index).setAddress(address);
+						break;
 
-			case 2:
-				System.out.println("Enter new City");
-				city = scan.nextLine();
-				person.get(index).setCity(city);
-				break;
+					case 2:
+						System.out.println("Enter new City");
+						city = scan.nextLine();
+						person.get(index).setCity(city);
+						break;
 
-			case 3:
-				System.out.println("Enter new State");
-				state = scan.nextLine();
-				person.get(index).setState(state);
-				break;
+					case 3:
+						System.out.println("Enter new State");
+						state = scan.nextLine();
+						person.get(index).setState(state);
+						break;
 
-			case 4:
-				System.out.println("Enter new Phone Number");
-				number = scan.nextLine();
-				person.get(index).setpNumber(number);
-				break;
+					case 4:
+						System.out.println("Enter new Phone Number");
+						number = scan.nextLine();
+						person.get(index).setpNumber(number);
+						break;
 
-			case 5:
-				System.out.println("Enter new Zip Code");
-				zip = scan.nextLine();
-				person.get(index).setZip(zip);
-				break;
+					case 5:
+						System.out.println("Enter new Zip Code");
+						zip = scan.nextLine();
+						person.get(index).setZip(zip);
+						break;
 
-			case 6:
-				System.out.println("Done & Exit");
-				System.exit(1);
-				break;
+					case 6:
+						System.out.println("Done & Exit");
+						System.exit(1);
+						break;
 
-			default:
-				System.out.println("Enter correct choice");
+					default:
+						System.out.println("Enter correct choice");
+					}
+
+					System.out.println(person.get(index));
+				}
 			}
-
-			System.out.println(person.get(index));
+		} catch (IndexOutOfBoundsException e) {
+			throw new AddressBookException("Entered Wrong id", AddressBookException.exceptionType.ENTERED_WRONG_ID);
 		}
+		return person;
 	}
 
 	// method to remove contact
-	public void removeContact() throws AddressBookException {
+	public LinkedList<Person> removeContact(LinkedList<Person> person) throws AddressBookException {
 
-		@SuppressWarnings("resource")
-		Scanner scan = new Scanner(System.in);
-		int index = 0;
+		try {
+			if (person.isEmpty()) {
+				System.out.println("No contacts to Delete");
+			} else {
+				Scanner scan = new Scanner(System.in);
+				int index = 0;
 
-		for (Person p : person) {
+				for (Person p : person) {
 
-			System.out.println("ID: " + person.indexOf(p) + " : " + p + "\n");
+					System.out.println("ID: " + person.indexOf(p) + " : " + p + "\n");
+				}
+
+				System.out.println("Enter ID to edit");
+				index = scan.nextInt();
+				person.remove(index);
+			}
+		} catch (IndexOutOfBoundsException e) {
+			throw new AddressBookException("Entered Wrong id", AddressBookException.exceptionType.ENTERED_WRONG_ID);
 		}
-
-		System.out.println("Enter ID to edit");
-		index = scan.nextInt();
-		person.remove(index);
+		return person;
 
 	}
 
 	// method to check duplicate
-	public boolean checkDuplicate(String name) {
+	public boolean checkDuplicate(String name, LinkedList<Person> person) {
 
 		int flag = person.stream().anyMatch(p -> p.getFirstName().equalsIgnoreCase(name)) ? 1 : 0;
 
@@ -248,7 +247,7 @@ public class AddressBookService implements AddressBookInterface {
 	}
 
 	// method for sorting the contacts by first name
-	public void sortContacts() {
+	public void sortContacts(LinkedList<Person> personList) {
 
 		Scanner scan = new Scanner(System.in);
 
@@ -259,19 +258,19 @@ public class AddressBookService implements AddressBookInterface {
 		switch (choice) {
 
 		case 1:
-			sortByName(person);
+			sortData(personList, SortOption.NAME);
 			break;
 
 		case 2:
-			sortByZip(person);
+			sortData(personList, SortOption.CITY);
 			break;
 
 		case 3:
-			sortByState(person);
+			sortData(personList, SortOption.STATE);
 			break;
 
 		case 4:
-			sortByZip(person);
+			sortData(personList, SortOption.ZIP);
 			break;
 
 		case 5:
@@ -282,7 +281,7 @@ public class AddressBookService implements AddressBookInterface {
 		}
 	}
 
-	public void SearchContact() {
+	public void SearchContact(LinkedList<Person> person) {
 
 		Scanner scan = new Scanner(System.in);
 
@@ -308,40 +307,11 @@ public class AddressBookService implements AddressBookInterface {
 
 	}
 
-	public void viewbyCityandState() {
-
-		Scanner scan = new Scanner(System.in);
-		Dictionary<String, String> cityDict = createCityDict();
-		Dictionary<String, String> stateDict = createStateDict();
-		final String city, state;
-		System.out.println("Enter City");
-		city = scan.nextLine();
-		System.out.println("Enter State");
-		state = scan.nextLine();
-		searchByCityandState(cityDict, stateDict);
-
+	@Override
+	public void sortContacts() {
+		// TODO Auto-generated method stub
+		
 	}
 
-	private void searchByCityandState(Dictionary<String, String> cityDict, Dictionary<String, String> stateDict) {
 
-		System.out.println("In progress...");
-	}
-
-	private Dictionary<String, String> createStateDict() {
-
-		Dictionary<String, String> stateDict = new Hashtable<String, String>();
-		for (Person p : person) {
-			stateDict.put(p.getFirstName(), p.getState());
-		}
-		return stateDict;
-	}
-
-	private Dictionary<String, String> createCityDict() {
-
-		Dictionary<String, String> cityDict = new Hashtable<String, String>();
-		for (Person p : person) {
-			cityDict.put(p.getFirstName(), p.getState());
-		}
-		return cityDict;
-	}
 }

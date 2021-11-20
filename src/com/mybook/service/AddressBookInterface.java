@@ -1,26 +1,20 @@
 package com.mybook.service;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.mybook.Person;
+import com.mybook.enums.SortOption;
 import com.mybook.exception.AddressBookException;
 
 public interface AddressBookInterface {
 
-	LinkedList<Person> addContact(LinkedList<Person> personList);
-
-	void displayContact(LinkedList<Person> person);
-
-	LinkedList<Person> editContact(LinkedList<Person> person) throws AddressBookException;
-
-	LinkedList<Person> removeContact(LinkedList<Person> person) throws AddressBookException;
-
-	void SearchContact(LinkedList<Person> person);
-
-	void sortContacts(LinkedList<Person> person);
-
+	void sortData(List<Person> person, SortOption sortOptions);
+	void searchBy(List<Person> person, String searchItem);
+	List<Person> addContact(List<Person> personList, Person person);
+	public void displayContact(List<Person> person);
+	List<Person> editContact(List<Person> person) throws AddressBookException;
+	List<Person> removeContact(List<Person> personList, int id);
 	boolean checkDuplicate(String name, LinkedList<Person> person);
-
-	void sortContacts();
 
 }

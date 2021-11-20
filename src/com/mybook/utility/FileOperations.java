@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -24,7 +25,7 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 public class FileOperations {
 
-	public void convertToFile(LinkedList<Person> addressBook, String filePath, int fileOperations) {
+	public void convertToFile(List<Person> addressBook, String filePath, int fileOperations) {
 
 		switch (fileOperations) {
 

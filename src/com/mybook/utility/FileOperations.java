@@ -85,7 +85,7 @@ public class FileOperations {
 				String[] nextPerson;
 				while ((nextPerson = csvReader.readNext()) != null) {
 					addressBook.add(new Person(nextPerson[2], nextPerson[3], nextPerson[0], nextPerson[1],
-							nextPerson[5], nextPerson[6], nextPerson[4], filePath));
+							nextPerson[5], nextPerson[6], nextPerson[4], nextPerson[7] ));
 				}
 			}
 			break;
@@ -102,6 +102,7 @@ public class FileOperations {
 				(String) personObj.get("City"), 
 				(String) personObj.get("State"),
 				(String) personObj.get("Zip"), 
-				(String) personObj.get("Phone"), null);
+				(String) personObj.get("Phone"),
+				(String) personObj.get("Email"));
 	}
 }

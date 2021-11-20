@@ -1,8 +1,6 @@
 package com.mybook.service;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +8,7 @@ import java.util.Scanner;
 import com.mybook.Person;
 import com.mybook.enums.SortOption;
 import com.mybook.exception.AddressBookException;
+import com.mybook.utility.WriteToCSV;
 
 public class AddressBookService implements AddressBookInterface {
 
@@ -230,6 +229,7 @@ public class AddressBookService implements AddressBookInterface {
 				System.out.println("Enter ID to edit");
 				index = scan.nextInt();
 				person.remove(index);
+				WriteToCSV.writeFromDelete(person);
 			}
 		} catch (IndexOutOfBoundsException e) {
 			throw new AddressBookException("Entered Wrong id", AddressBookException.exceptionType.ENTERED_WRONG_ID);

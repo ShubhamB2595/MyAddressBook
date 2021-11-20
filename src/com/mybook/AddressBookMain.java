@@ -3,15 +3,17 @@ package com.mybook;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import com.mybook.exception.AddressBookException;
 import com.mybook.service.AddressBookService;
 import com.mybook.utility.FileOperations;
 
 public class AddressBookMain {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws AddressBookException, Exception {
 		final String JSON_SIMPLE_FILE_PATH = "src/main/resources/JSonSimpleAddressBook.json";
 		final String OPEN_CSV_FILE_PATH = "src/main/resources/CSVAddressBook.csv";
-		final int jsonSampleOperation = 1, openCSVOperation = 2;
+        final String GSON_JSON_FILE_PATH = "src/main/resources/gsonJSONAddressBook.json";
+		final int jsonSampleOperation = 1, openCSVOperation = 2,  gsonOperation = 3;
 		int operations = 0, flag = 0;
 		String filePath = null;
 		LinkedList<Person> personList;
@@ -21,7 +23,7 @@ public class AddressBookMain {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("Select Below Operations:\n1. JSON SAMPLE\n2. OPEN CSV \n");
+		System.out.println("Select Below Operations:\n1. JSON SAMPLE\n2. OPEN CSV \n3. Using GSON \n");
 		int option = scan.nextInt();
 		switch (option) {
 		case 1:
@@ -32,6 +34,10 @@ public class AddressBookMain {
 			filePath = OPEN_CSV_FILE_PATH;
 			operations = openCSVOperation;
 			break;
+		 case 3:
+             filePath = GSON_JSON_FILE_PATH;
+             operations = gsonOperation;
+             break;
 		}
 
 		while (true) {
